@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Slides</title>
+		<link rel="stylesheet" href="./multiCol.css">
+		<link rel="stylesheet" href="./Reveal/reveal.css">
+		<link rel="stylesheet" href="./Reveal/theme/white.css">
+		<link rel="stylesheet" href="./Reveal/highlight/monokai.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides" id="slides">
+
+				<section data-external="./Slides/title.html" data-visibility="uncounted"></section>
+				<section data-external="./Slides/goals.html"></section>
+				<section id="algo2D" data-external="./Slides/algo2D.html"></section>
+
+			</div>	
+		</div>
+
+		<script type="module">
+			import Reveal from './Reveal/reveal.esm.js'
+
+			import Slide from './Slides/Slide.js';
+			import {slide_Algo2D} from './Slides/algo2D.js';
+
+			import RevealNotes from './Reveal/notes/notes.esm.js'
+			import RevealMath from './Reveal/math/math.esm.js'
+			import RevealHighlight from './Reveal/highlight/highlight.esm.js'
+
+			const slides = new Array();
+			slides["algo2Ds"] = slide_Algo2D;
+
+			// slides[] = ;
+
+			let active_slide;
+			Reveal.addEventListener('slidechanged', function(event) {
+				if(active_slide) active_slide.close();
+				var sectionID = Reveal.getCurrentSlide().id;
+				active_slide = slides[sectionID]
+				if(active_slide) active_slide.open();
+			});
+
+			const fragment_events = [];
+			Reveal.addEventListener('fragmentshown', function(event) {
+				if(fragment_events[event.fragment.id])
+					fragment_events[event.fragment.id]();
+			});
+			Reveal.addEventListener('fragmenthidden', function(event) {
+				if(fragment_events[event.fragment.id])
+					fragment_events[event.fragment.id]();
+			});
+
+
+			Reveal.initialize({
+				touch: false, 
+				slideNumber: 'c/t',
+				transition: 'none',
+				center: true,
+				hideAddressBar: true,
+				plugins: [RevealNotes, RevealMath, RevealHighlight, ],
+				dependencies: [{
+						src: 'Reveal/external/external.js',
+						condition: function() {
+							return !!document.querySelector( '[data-external],[data-external-replace]' );
+						}
+					}],
+				width: 1920,
+				height: 1400
+			}).then(() => {
+				slide_Algo2D.init(
+						document.getElementById("algo2D_0"),
+						document.getElementById("algo2D_1"),
+						document.getElementById("algo2D_2"),
+						document.getElementById("algo2D_3")
+					);
+				slide_Algo2D.open();
+				console.log(document.getElementById("algo2D_0"))
+				Reveal.slide(0);
+			});
+
+			
+		</script>
+
+	</body>
+
+</html>
