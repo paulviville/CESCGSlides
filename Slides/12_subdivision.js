@@ -3,24 +3,23 @@ import Slide from './Slide.js';
 import * as THREE from '../CMapJS/Libs/three.module.js';
 import {OrbitControls} from '../CMapJS/Libs/OrbitsControls.js';
 import Renderer from '../CMapJS/Rendering/Renderer.js';
-import * as Display from '../CMapJS/Utils/Display.js';
-import * as Cactus from '../Files/cactus_files.js';
-import * as Horse from '../Files/horse_files.js';
-import {loadGraph} from '../CMapJS/IO/GraphFormats/GraphIO.js';
-import {loadIncidenceGraph} from '../CMapJS/IO/IncidenceGraphFormats/IncidenceGraphIO.js';
+import RendererDarts from '../CMapJS/Rendering/RendererDarts.js';
 import {loadCMap2} from '../CMapJS/IO/SurfaceFormats/CMap2IO.js';
 import {Clock} from '../CMapJS/Libs/three.module.js';
 
-import {glRenderer, scafEdgeMaterial, meshEdgeMaterial, ambiantLightInt, pointLightInt} from './parameters.js';
+import {glRenderer, ambiantLightInt, pointLightInt} from './parameters.js';
 
+import {cube_off} from '../Files/off_files.js'
+import {cutAllEdges, quadrangulateAllFaces} from '../CMapJS/Utils/Subdivision.js';
+import { catmullClark_inter} from '../CMapJS/Modeling/Subdivision/Surface/CatmullClark.js'
+import catmullClark from '../CMapJS/Modeling/Subdivision/Surface/CatmullClark.js'
 
 
 export const slide_subdivision = new Slide(
 	function(DOM_Subdivision0, DOM_Subdivision1, DOM_Subdivision2, DOM_Subdivision3, DOM_Subdivision4)
 	{
 		this.camera = new THREE.PerspectiveCamera(45, DOM_Subdivision0.width / DOM_Subdivision0.height, 0.1, 1000.0);
-		this.camera.position.set(0, 0.3, 1.3);
-
+		this.camera.position.set(0.9, 0.75, 1.95);
 		const surfaceLayer = 0;
 		const skelLayer = 1;
 		const skelAdLayer = 2;
@@ -28,11 +27,18 @@ export const slide_subdivision = new Slide(
 		const rawLayer = 4;
 		const meshLayer = 6;
 
-		const contextHorse0 = DOM_Subdivision0.getContext('2d');
-		const contextHorse1 = DOM_Subdivision1.getContext('2d');
-		const contextHorse2 = DOM_Subdivision2.getContext('2d');
-		const contextHorse3 = DOM_Subdivision3.getContext('2d');
-		const contextHorse4 = DOM_Subdivision4.getContext('2d');
+		const layer0 = 0;
+		const layer1 = 1;
+		const layer2 = 2;
+		const layer3 = 3;
+		const layer4 = 4;
+		const layer5 = 5;
+
+		const context0 = DOM_Subdivision0.getContext('2d');
+		const context1 = DOM_Subdivision1.getContext('2d');
+		const context2 = DOM_Subdivision2.getContext('2d');
+		const context3 = DOM_Subdivision3.getContext('2d');
+		const context4 = DOM_Subdivision4.getContext('2d');
 
 		const controlsHorse0 = new OrbitControls(this.camera, DOM_Subdivision0);
 		const controlsHorse1 = new OrbitControls(this.camera, DOM_Subdivision1);
@@ -62,31 +68,79 @@ export const slide_subdivision = new Slide(
 		this.group = new THREE.Group;
 		this.scene.add(this.group);
 
-		this.horseSurface = Display.loadSurfaceView("off", Horse.horse_off, {transparent: true, opacity: 0.3});
-		this.horseSurface.layers.set(surfaceLayer);
-		this.group.add(this.horseSurface);
 
-		const horseSkel = loadIncidenceGraph('ig', Horse.horseRaw_ig);
-		this.horseSkel = new Renderer(horseSkel);
-		this.horseSkel.edges.create({layer: skelLayer, material: meshEdgeMaterial, size: 2}).addTo(this.group);
+		const cube0 = loadCMap2('off', cube_off);
+		const vertex = cube0.vertex;
 
-		const horseAdSkel = loadGraph('cg', Horse.horse_cg);
-		this.horseAdSkel = new Renderer(horseAdSkel);
-		this.horseAdSkel.edges.create({layer: skelAdLayer, material: meshEdgeMaterial, size: 2}).addTo(this.group);
-		this.horseAdSkel.vertices.create({layer: skelAdLayer, size:0.01, color: new THREE.Color(0.2, 0.8, 0.2)}).addTo(this.group);
+		const renderer = new Renderer(cube0);
+		renderer.edges.create({layer: layer5, color: 0x0000bb});
+		renderer.edges.addTo(this.group);
+
+		const cube1 = loadCMap2('off', cube_off);
+		const pos1 = cube1.getAttribute(vertex, "position")
+		cutAllEdges(cube1, vd => {
+			let vid = cube1.cell(vertex, vd);
+			pos1[vid] = new THREE.Vector3();
+			cube1.foreachDartOf(cube1.vertex, vd, d => {
+				pos1[vid].add(pos1[cube1.cell(vertex, cube1.phi2[d])]);
+			});
+			pos1[vid].multiplyScalar(0.5);
+		})
+
+		const cube2 = loadCMap2('off', cube_off);
+		const pos2 = cube2.getAttribute(vertex, "position")
+		quadrangulateAllFaces(cube2, 
+			vd => {
+	
+				let vid = cube2.cell(vertex, vd);
+				pos2[vid] = new THREE.Vector3();
+				cube2.foreachDartOf(vertex, vd, d => {
+					pos2[vid].add(pos2[cube2.cell(vertex, cube2.phi2[d])]);
+				});
+				pos2[vid].multiplyScalar(0.5);
+			},
+			vd => {
+				let vid = cube2.cell(vertex, vd);
+				let nbEdges = 0;
+				pos2[vid] = new THREE.Vector3();
+				cube2.foreachDartOf(vertex, vd, d => {
+					pos2[vid].add(pos2[cube2.cell(vertex, cube2.phi2[d])]);
+					++nbEdges;
+				});
+				pos2[vid].multiplyScalar(1 / nbEdges);
+			});
+
+		const cube3 = loadCMap2('off', cube_off);
+		catmullClark(cube3);
+		const cube4 = loadCMap2('off', cube_off);
+		catmullClark_inter(cube4)
+
+		// const renderer2 = new Renderer(cube4);
+		// renderer2.edges.create({layer: layer5, color: 0x0000bb});
+		// renderer2.edges.addTo(this.group);
+
+		const rendererDarts0 = new RendererDarts(cube0);
+		rendererDarts0.faces.create({wireframe: true, layer: layer0});
+		rendererDarts0.faces.addTo(this.group)
+
+		const rendererDarts1 = new RendererDarts(cube1);
+		rendererDarts1.faces.create({wireframe: true, layer: layer1});
+		rendererDarts1.faces.addTo(this.group)
+
+		const rendererDarts2 = new RendererDarts(cube2);
+		rendererDarts2.faces.create({wireframe: true, layer: layer2});
+		rendererDarts2.faces.addTo(this.group)
+
+		const rendererDarts3 = new RendererDarts(cube3);
+		rendererDarts3.faces.create({wireframe: true, layer: layer3});
+		rendererDarts3.faces.addTo(this.group)
+
+		const rendererDarts4 = new RendererDarts(cube4);
+		rendererDarts4.faces.create({wireframe: true, layer: layer4});
+		rendererDarts4.faces.addTo(this.group)
 
 
-		const horseScaf = loadCMap2('off', Horse.horseScaf_off);
-		this.horseScaf = new Renderer(horseScaf);
-		this.horseScaf.edges.create({layer: scafLayer, material: scafEdgeMaterial, size: 2.5}).addTo(this.group);
 
-		this.horseRawVol = Display.loadVolumesView("mesh", Horse.horseRaw_mesh);
-		this.horseRawVol.layers.set(rawLayer);
-		this.group.add(this.horseRawVol);
-
-		this.horseVol = Display.loadVolumesView("mesh", Horse.horse_mesh);
-		this.horseVol.layers.set(meshLayer);
-		this.group.add(this.horseVol);
 
 		const axis = new THREE.Vector3(0, 1, 0);
 		this.clock = new Clock(true);
@@ -103,35 +157,37 @@ export const slide_subdivision = new Slide(
 				this.time += this.clock.getDelta() * this.on;
 				this.group.setRotationFromAxisAngle(axis, Math.PI/2 + Math.PI / 50 * this.time);
 				
-				this.camera.layers.enable(skelLayer);
+				this.camera.layers.enable(layer5);
+				this.camera.layers.enable(layer0);
 				glRenderer.render(this.scene, this.camera);
-				contextHorse0.clearRect(0, 0, DOM_Subdivision0.width, DOM_Subdivision0.height);
-				contextHorse0.drawImage(glRenderer.domElement, 0, 0);
-				this.camera.layers.disable(skelLayer);
+				context0.clearRect(0, 0, DOM_Subdivision0.width, DOM_Subdivision0.height);
+				context0.drawImage(glRenderer.domElement, 0, 0);
+				this.camera.layers.disable(layer0);
 
-				this.camera.layers.enable(skelAdLayer);
+				this.camera.layers.enable(layer1);
 				glRenderer.render(this.scene, this.camera);
-				contextHorse1.clearRect(0, 0, DOM_Subdivision1.width, DOM_Subdivision1.height);
-				contextHorse1.drawImage(glRenderer.domElement, 0, 0);
+				context1.clearRect(0, 0, DOM_Subdivision0.width, DOM_Subdivision0.height);
+				context1.drawImage(glRenderer.domElement, 0, 0);
+				this.camera.layers.disable(layer1);
 
-				this.camera.layers.enable(scafLayer);
+				this.camera.layers.enable(layer2);
 				glRenderer.render(this.scene, this.camera);
-				contextHorse2.clearRect(0, 0, DOM_Subdivision2.width, DOM_Subdivision2.height);
-				contextHorse2.drawImage(glRenderer.domElement, 0, 0);
-				this.camera.layers.disable(scafLayer);
+				context2.clearRect(0, 0, DOM_Subdivision0.width, DOM_Subdivision0.height);
+				context2.drawImage(glRenderer.domElement, 0, 0);
+				this.camera.layers.disable(layer2);
 
-				this.camera.layers.enable(rawLayer);
+				this.camera.layers.enable(layer3);
 				glRenderer.render(this.scene, this.camera);
-				contextHorse3.clearRect(0, 0, DOM_Subdivision3.width, DOM_Subdivision3.height);
-				contextHorse3.drawImage(glRenderer.domElement, 0, 0);
-				this.camera.layers.disable(rawLayer);
-				this.camera.layers.disable(skelAdLayer);
+				context3.clearRect(0, 0, DOM_Subdivision0.width, DOM_Subdivision0.height);
+				context3.drawImage(glRenderer.domElement, 0, 0);
+				this.camera.layers.disable(layer3);
 
-				this.camera.layers.enable(meshLayer);
+				this.camera.layers.enable(layer4);
 				glRenderer.render(this.scene, this.camera);
-				contextHorse4.clearRect(0, 0, DOM_Subdivision4.width, DOM_Subdivision4.height);
-				contextHorse4.drawImage(glRenderer.domElement, 0, 0);
-				this.camera.layers.disable(meshLayer);
+				context4.clearRect(0, 0, DOM_Subdivision0.width, DOM_Subdivision0.height);
+				context4.drawImage(glRenderer.domElement, 0, 0);
+				this.camera.layers.disable(layer4);
+
 
 				requestAnimationFrame(this.loop.bind(this));
 			}

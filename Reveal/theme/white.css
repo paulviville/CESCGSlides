@@ -83,7 +83,10 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   font-size: 2.5em; }
 
 .reveal h2 {
-  font-size: 1.6em; }
+  font-size: 1.8em;
+  text-align: left;
+  padding-left: 15%;
+ }
 
 .reveal h3 {
   font-size: 1.3em; }

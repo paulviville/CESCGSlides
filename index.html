@@ -20,15 +20,21 @@
 				<section data-external="./Slides/4_CMaps.html"></section>
 				<section data-external="./Slides/5_CMaps.html"></section>
 				<section data-external="./Slides/6_CMaps.html"></section>
-				<section data-external="./Slides/7_CMap0.html"></section>
-				<section data-external="./Slides/8_CMap1.html"></section>
-				<section data-external="./Slides/9_CMap2.html"></section>
-				<section data-external="./Slides/10_CMap3.html"></section>
+				<section id="7_CMap0" data-external="./Slides/7_CMap0.html"></section>
+				<section id="8_CMap1" data-external="./Slides/8_CMap1.html"></section>
+				<section id="9_CMap2" data-external="./Slides/9_CMap2.html"></section>
+				<section id="10_CMap3" data-external="./Slides/10_CMap3.html"></section>
 				<section data-external="./Slides/11_CMap4.html"></section>
-				<section data-external="./Slides/12_subdivision.html"></section>
+				<section id="12_subdivision" data-external="./Slides/12_subdivision.html"></section>
 				<section id="algo2D" data-external="./Slides/13_myphd.html"></section>
+				<section data-external="./Slides/14_CMapsLibs.html"></section>
+				<section data-external="./Slides/15_threeJS.html"></section>
+				<section data-external="./Slides/16_threeJS.html"></section>
+				<section data-external="./Slides/17_threeJS.html"></section>
+				<section data-external="./Slides/18_threeJS.html"></section>
+				<section data-external="./Slides/19_threeJS.html"></section>
 
-			</div>	
+			</div>
 		</div>
 
 		<script type="module">
@@ -36,13 +42,23 @@
 
 			import Slide from './Slides/Slide.js';
 			import {slide_Algo2D} from './Slides/13_myphd.js';
+			import {slide_cmap0} from './Slides/7_CMap0.js';
+			import {slide_cmap1} from './Slides/8_CMap1.js';
+			import {slide_cmap2} from './Slides/9_CMap2.js';
+			import {slide_cmap3} from './Slides/10_CMap3.js';
+			import {slide_subdivision} from './Slides/12_subdivision.js';
 
 			import RevealNotes from './Reveal/notes/notes.esm.js'
 			import RevealMath from './Reveal/math/math.esm.js'
 			import RevealHighlight from './Reveal/highlight/highlight.esm.js'
 
 			const slides = new Array();
-			slides["algo2Ds"] = slide_Algo2D;
+			slides["algo2D"] = slide_Algo2D;
+			slides["7_CMap0"] = slide_cmap0;
+			slides["8_CMap1"] = slide_cmap1;
+			slides["9_CMap2"] = slide_cmap2;
+			slides["10_CMap3"] = slide_cmap3;
+			slides["12_subdivision"] = slide_subdivision;
 
 			// slides[] = ;
 
@@ -66,7 +82,7 @@
 
 
 			Reveal.initialize({
-				touch: false, 
+				touch: false,
 				slideNumber: 'c/t',
 				transition: 'none',
 				center: true,
@@ -87,12 +103,23 @@
 						document.getElementById("algo2D_2"),
 						document.getElementById("algo2D_3")
 					);
-				slide_Algo2D.open();
-				console.log(document.getElementById("algo2D_0"))
-				Reveal.slide(11);
+
+				slide_cmap0.init(document.getElementById("CMap0"));
+				slide_cmap1.init(document.getElementById("CMap1"));
+				slide_cmap2.init(document.getElementById("CMap2"));
+				slide_cmap3.init(document.getElementById("CMap3"));
+
+				slide_subdivision.init(
+						document.getElementById("subdivision_0"),
+						document.getElementById("subdivision_1"),
+						document.getElementById("subdivision_2"),
+						document.getElementById("subdivision_3"),
+						document.getElementById("subdivision_4")
+					);
+				Reveal.slide(19);
 			});
 
-			
+
 		</script>
 
 	</body>

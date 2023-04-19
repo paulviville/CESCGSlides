@@ -8,6 +8,7 @@ import * as Hand from '../Files/hand_files.js';
 import {loadIncidenceGraph} from '../CMapJS/IO/IncidenceGraphFormats/IncidenceGraphIO.js';
 import {loadCMap2} from '../CMapJS/IO/SurfaceFormats/CMap2IO.js';
 import {Clock} from '../CMapJS/Libs/three.module.js';
+import CMap0 from '../CMapJS/CMap/CMap0.js'
 
 import {glRenderer, scafEdgeMaterial, meshEdgeMaterial, ambiantLightInt, pointLightInt} from './parameters.js';
 
