@@ -1,0 +1,37 @@
+<h2>Interactions</h2>
+<hr style="width: 70%; display:flex; justify-content:space-evenly;">
+
+<div class="r-hstack" style="padding-top:3%;">
+	<div>
+		<iframe frameborder="0" style="overflow:scroll;" data-src="https://threejs.org/examples/webgl_interactive_raycasting_points.html" height="900px" width="900px"></iframe>
+	</div>
+	
+	
+	<div style="padding-left: 2%; width: 48%">
+		<pre style="height: 650px"><code  class="javascript">
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
+
+function onDown( ev ) {
+  pointer.x = ( ev.clientX/window.innerWidth)*2-1;
+  pointer.y = -( ev.clientY/window.innerHeight)*2+1;
+
+  raycaster.setFromCamera(pointer, camera);
+  let inters = raycaster.intersectObjects(/*[...]*/);
+  if(inters.length){
+    console.log(inters[0].object)
+  }
+}
+			
+
+
+window.addEventListener('pointerdown', onDown, false);
+
+		</code>
+	</pre>
+	</div>
+</div>
+
+<aside class="notes">
+	<br>-
+</aside>

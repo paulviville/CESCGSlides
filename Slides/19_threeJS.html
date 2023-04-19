@@ -6,7 +6,7 @@
 	
 
 	<div style="padding-left: 2%; width: 48%">
-		<pre style="height: 650px"><code  class="javascript">
+		<pre style="height: 450px"><code  class="javascript">
 const geometry = new THREE.BoxGeometry(1, 1, 1);	
 				
 const material = new THREE.MeshLambertMaterial();
@@ -15,6 +15,9 @@ const cubeMesh = new THREE.Mesh(geometry, material);
 
 scene.add(cubeMesh);
 
+// if you want to actually see something :
+const light = new THREE.PointLight(0xFFFFFF, 0.8);
+scene.add(light);
 		</code>
 	</pre>
 	</div>
