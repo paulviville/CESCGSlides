@@ -1,0 +1,32 @@
+<h2>Custom Shaders</h2>
+<hr style="width: 70%; display:flex; justify-content:space-evenly;">
+
+<div class="r-hstack" style="padding-top:3%;">
+	<div>
+		<iframe frameborder="0" style="overflow:scroll;" data-src="https://threejs.org/examples/webgl_shader2.html" height="900px" width="900px"></iframe>
+	</div>
+	
+	
+	<div style="padding-left: 2%; width: 48%">
+		<pre style="height: 650px"><code  class="javascript">
+const vs = `vertex shader`;
+const fs = `fragment shader`;
+
+const customMat = new THREE.RawShaderMaterial({
+  uniforms: {
+    time: {value: 0.0}
+  }
+  vertexShader: vs,
+  fragmentShader: fs
+});
+
+const mesh = new THREE.Mesh(geometry, customMat);
+
+		</code>
+	</pre>
+	</div>
+</div>
+
+<aside class="notes">
+	<br>-
+</aside>
