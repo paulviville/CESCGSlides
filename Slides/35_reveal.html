@@ -1,0 +1,36 @@
+<h2>Set up</h2>
+<hr style="width: 70%; display:flex; justify-content:space-evenly;">
+
+<div class="r-hstack" style="padding-top:3%;">
+<div>
+<pre style="height: 650px; width: 900px"><code class="javascript">
+&lt;body&gt;
+
+  &lt;div class="reveal"&gt;
+  &lt;div class="slides" id="slides"&gt;
+
+  &lt;section id="slide0"&gt; content of the slide &lt;/section&gt;
+
+  &lt;script type="module"&gt;
+    import Reveal from './Reveal/reveal.esm.js';
+    Reveal.initialize({
+	  center: true,
+	  transition: 'none',
+	  width: 1920,
+      height: 1400
+    }).then(() => {
+      // after loading slides
+    });
+  &lt;/script&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+  
+&lt;/body&gt;
+	</code></pre>
+</div>
+
+</div>
+
+<aside class="notes">
+	<br>-
+</aside>

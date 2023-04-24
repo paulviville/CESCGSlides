@@ -1,12 +1,29 @@
-<h2>Animation</h2>
+<h2>Mesh Loader</h2>
 <hr style="width: 70%; display:flex; justify-content:space-evenly;">
 
 <div class="r-hstack" style="padding-top:3%;">
 	<div>
-		<iframe frameborder="0" style="overflow:scroll;" data-src="https://threejs.org/examples/webgl_loader_fbx.html" height="1200px" width="1900px"></iframe>
+		<iframe frameborder="0" style="overflow:scroll;" data-src="https://threejs.org/examples/webgl_loader_gltf_compressed.html" height="900px" width="900px"></iframe>
 	</div>
 	
+	
+	<div style="padding-left: 2%; width: 48%">
+		<pre style="height: 650px"><code  class="javascript">
+import { GLTFLoader } from 'GLTFLoader.js';
 
+const loader = new GLTFLoader();
+loader.load('path',
+  // callback after loading
+  function (gltf) {
+    scene.add(gtlf.scene)
+  },
+  /* optional during loading: func,*/
+  /* optional on error: func,*/
+);
+
+		</code>
+	</pre>
+	</div>
 </div>
 
 <aside class="notes">

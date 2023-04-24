@@ -42,6 +42,17 @@
 				<section data-external="./Slides/26_threeJS.html"></section>
 				<section data-external="./Slides/27_threeJS.html"></section>
 				<section data-external="./Slides/28_threeJS.html"></section>
+				<section data-external="./Slides/29_threeJS.html"></section>
+				<section data-external="./Slides/30_threeJS.html"></section>
+				<section data-external="./Slides/31_threeJS.html"></section>
+				<section data-external="./Slides/32_threeJS.html"></section>
+				<section data-external="./Slides/33_reveal.html"></section>
+				<section data-external="./Slides/34_reveal.html"></section>
+				<section data-external="./Slides/35_reveal.html"></section>
+				<section data-external="./Slides/36_reveal.html"></section>
+				<section data-external="./Slides/37_reveal.html"></section>
+				<section data-external="./Slides/38_reveal.html"></section>
+				<section data-external="./Slides/39_reveal.html"></section>
 
 			</div>
 		</div>
@@ -60,6 +71,7 @@
 			import RevealNotes from './Reveal/notes/notes.esm.js'
 			import RevealMath from './Reveal/math/math.esm.js'
 			import RevealHighlight from './Reveal/highlight/highlight.esm.js'
+			import RevealMarkdown from './Reveal/markdown/markdown.esm.js'
 
 			const slides = new Array();
 			slides["algo2D"] = slide_Algo2D;
@@ -96,7 +108,7 @@
 				transition: 'none',
 				center: true,
 				hideAddressBar: true,
-				plugins: [RevealNotes, RevealMath, RevealHighlight, ],
+				plugins: [RevealNotes, RevealMath, RevealHighlight, RevealMarkdown],
 				dependencies: [{
 						src: 'Reveal/external/external.js',
 						condition: function() {
@@ -125,7 +137,7 @@
 						document.getElementById("subdivision_3"),
 						document.getElementById("subdivision_4")
 					);
-				Reveal.slide(24);
+				Reveal.slide(39);
 			});
 
 

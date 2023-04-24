@@ -1,0 +1,49 @@
+<h2>Contributing</h2>
+<hr style="width: 70%; display:flex; justify-content:space-evenly;">
+
+<div class="r-hstack" style="padding-top:3%;">
+	<div>
+		<iframe frameborder="0" style="overflow:scroll;" data-src="https://paulviville.github.io/skeletonTesting/" height="900px" width="900px"></iframe>
+	</div>
+	
+	
+	<div style="padding-left: 2%; width: 48%">
+		<pre style="height: 850px"><code  class="javascript">class DualQuaternion {
+
+  constructor( real, dual) { ... }
+  static setFromRotation( q ) { ... }
+  static setFromRotationTranslation( q, t ) { ... }
+  static setFromTranslation( t ) { ... }
+  add( dq ) { ... }
+  addScaledDualQuaternion( dq, s ) { ... }
+  clone() { ... }
+  copy( dq ) { ... }
+  conjugate() { ... }
+  dot( dq ) { ... }
+  equals( dq ) { ... }
+  fromArray( array, offset = 0 ) { ... }
+  getRotation() { ... }
+  getTranslation() { ... }
+  identity() { ... }
+  invert() { ... }
+  length() { ... }
+  lengthSq() { ... }
+  lerp( dq, t ) {  ... }
+  lerpShortest( dq, t ) { ... }
+  lerpDualQuaternions( dq0, dq1, t) { ... }
+  lerpDualQuaternionsShortest( dq0, dq1, t) { ... }
+  multiplyDualQuaternions( dq0, dq1 ) { ... }
+  multiply( dq ) { ... }
+  multiplyScalar( s ) { ... }
+  normalize() { ... }
+  toArray( array = [], offset = 0 ) { ... }
+  transform( p ) { ... }
+}
+		</code>
+	</pre>
+	</div>
+</div>
+
+<aside class="notes">
+	<br>-
+</aside>

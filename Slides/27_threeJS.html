@@ -1,12 +1,31 @@
-<h2>Instancing & Interaction</h2>
+<h2>Input controls</h2>
 <hr style="width: 70%; display:flex; justify-content:space-evenly;">
 
 <div class="r-hstack" style="padding-top:3%;">
 	<div>
-		<iframe frameborder="0" style="overflow:scroll;" data-src="https://threejs.org/examples/webgl_instancing_raycast.html" height="1200px" width="1900px"></iframe>
+		<iframe frameborder="0" style="overflow:scroll;" data-src="https://threejs.org/examples/misc_controls_fly.html" height="900px" width="900px"></iframe>
 	</div>
 	
+	
+	<div style="padding-left: 2%; width: 48%">
+		<pre style="height: 650px"><code  class="javascript">
+function onKeyDown(event) {
+  switch(event.key){
+    case 'a': 
+      // do something
+      break;
+    ...
+  }
+}
 
+window.addEventListener('keydown', onKeyDown, false);
+
+/// Any html event:
+'keyup', 'pointerdown', 'mousewheel', etc...
+
+		</code>
+	</pre>
+	</div>
 </div>
 
 <aside class="notes">

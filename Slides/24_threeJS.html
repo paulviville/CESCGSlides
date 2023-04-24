@@ -9,31 +9,13 @@
 	
 	<div style="padding-left: 2%; width: 48%">
 		<pre style="height: 650px"><code  class="javascript">
-class DualQuaternion {
+const grid = new THREE.GridHelper( size, divisions );
 
-  constructor( real = new Quaternion(), dual = new Quaternion(0, 0, 0, 0) ) {
+const box = new THREE.BoxHelper( object, 0xffff00 );
 
-    this.isDualQuaternion = true;
+const axes = new THREE.AxesHelper( 5 );
 
-    this.real = real;
-    this.dual = dual;
-
-  }
-
-  static setFromRotation( q ) {
-
-    return new DualQuaternion( q );
-
-  }
-
-  static setFromRotationTranslation( q, t ) {
-	const w = -0.5 * ( t.x * q.x + t.y * q.y + t.z * q.z );
-	const x =  0.5 * ( t.x * q.w + t.y * q.z - t.z * q.y );
-	const y =  0.5 * (-t.x * q.z + t.y * q.w + t.z * q.x );
-	const z =  0.5 * ( t.x * q.y - t.y * q.x + t.z * q.w );
-
-	return new DualQuaternion( q , new Quaternion( x, y, z, w ) ).normalize();
-  }	
+const arrow = new THREE.ArrowHelper(dir, ori, len, hex)
 		</code>
 	</pre>
 	</div>

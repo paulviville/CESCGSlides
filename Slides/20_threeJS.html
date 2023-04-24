@@ -15,6 +15,18 @@ const controls = new OrbitControls(
 	camera, 
 	renderer.domElement 
 );
+
+
+
+// alternatives:
+
+const controls = new ArcballControls(camera, canvas, scene);
+
+controls.addEventListener('change', function() {
+	renderer.render( scene, camera );
+} );
+
+
 		</code>
 	</pre>
 	</div>

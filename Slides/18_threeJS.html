@@ -1,7 +1,7 @@
 <h2>Set up</h2>
 <hr style="width: 70%; display:flex; justify-content:space-evenly;">
 
-<div class="r-hstack" style="padding-top:8%;">
+<div class="r-hstack" style="padding-top:4%;">
 	<div style="width: 48%; height: 80%">
 		<p style="font-size: 40px;">index.html</p>
 		
@@ -22,34 +22,6 @@
   &lt;/body&gt;
 
 &lt;/html&gt;
-		</code></pre>
-	</div>
-
-	<div style="padding-left: 2%; width: 48%">
-		<p style="font-size: 40px;">main.js</p>
-		<pre style="height: 650px" class="javascript"><code>
-import * as THREE from './CMapJS/Libs/three.module.js';
-
-const scene = new THREE.Scene();
-
-const height = window.innerHeight;
-const width = window.innerWidth;
-
-const camera = new THREE.PerspectiveCamera( 45, 
-		width/height, 0.1, 10 );
-camera.position.set(0, 0, 1)
-
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize( width, height );
-document.body.appendChild( renderer.domElement );
-
-function loop(t) {
-  /* update stuff here */
-  renderer.render(scene, camera);
-  requestAnimationFrame(loop);
-}
-
-loop(0);
 		</code></pre>
 	</div>
 </div>

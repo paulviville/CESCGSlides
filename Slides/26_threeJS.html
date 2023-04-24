@@ -1,12 +1,37 @@
-<h2>Level of Detail</h2>
+<h2>Parameter controls</h2>
 <hr style="width: 70%; display:flex; justify-content:space-evenly;">
 
 <div class="r-hstack" style="padding-top:3%;">
 	<div>
-		<iframe frameborder="0" style="overflow:scroll;" data-src="https://threejs.org/examples/webgl_lod.html" height="1200px" width="1900px"></iframe>
+		<iframe frameborder="0" style="overflow:scroll;" data-src="https://paulviville.github.io/YK/" height="900px" width="900px"></iframe>
 	</div>
 	
+	
+	<div style="padding-left: 2%; width: 48%">
+		<pre style="height: 650px"><code  class="javascript">
+import * as DAT from './dat.gui.module.js';
 
+const params = {
+	color: 0xFF0000,
+	opacity: 1,
+	transparent: false,
+}
+
+function recolor(c) {...}
+function reopacity(o) {...}
+function toggleTransparency(t) {...}
+
+const gui = new DAT.GUI();
+const fold0 = gui.addFolder("folder0");
+
+const c = fold0.addColor(params, 'color').onChange(recolor);
+
+const o = fold0.add(params, 'opacity').name(opacity);
+o.step(0.01).min(0).max(1).onChange(reopacity)
+
+		</code>
+	</pre>
+	</div>
 </div>
 
 <aside class="notes">
