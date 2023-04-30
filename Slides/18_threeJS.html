@@ -24,6 +24,34 @@
 &lt;/html&gt;
 		</code></pre>
 	</div>
+  <div style="padding-left: 2%; width: 48%">
+		<p style="font-size: 40px;">main.js</p>
+		<pre style="height: 650px" class="javascript"><code>
+import * as THREE from './three.module.js';
+
+const scene = new THREE.Scene();
+
+const height = window.innerHeight;
+const width = window.innerWidth;
+
+const camera = new THREE.PerspectiveCamera( 45, 
+		width/height, 0.1, 10 );
+camera.position.set(0, 0, 1)
+
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize( width, height );
+document.body.appendChild( renderer.domElement );
+
+
+function loop(t) {
+  /* update stuff here */
+  renderer.render(scene, camera);
+}
+
+loop(0);
+		</code></pre>
+	</div>
+
 </div>
 <p style="font-size: 40px; padding: 0%">VSC + LiveServer pluggin</p>
 <p style="font-size: 40px; padding-top: 0%">pyton -m SimpleHTTPServer</p>

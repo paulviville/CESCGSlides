@@ -40,11 +40,11 @@ export const slide_subdivision = new Slide(
 		const context3 = DOM_Subdivision3.getContext('2d');
 		const context4 = DOM_Subdivision4.getContext('2d');
 
-		const controlsHorse0 = new OrbitControls(this.camera, DOM_Subdivision0);
-		const controlsHorse1 = new OrbitControls(this.camera, DOM_Subdivision1);
-		const controlsHorse2 = new OrbitControls(this.camera, DOM_Subdivision2);
-		const controlsHorse3 = new OrbitControls(this.camera, DOM_Subdivision3);
-		const controlsHorse4 = new OrbitControls(this.camera, DOM_Subdivision4);
+		const controls0 = new OrbitControls(this.camera, DOM_Subdivision0);
+		const controls1 = new OrbitControls(this.camera, DOM_Subdivision1);
+		const controls2 = new OrbitControls(this.camera, DOM_Subdivision2);
+		const controls3 = new OrbitControls(this.camera, DOM_Subdivision3);
+		const controls4 = new OrbitControls(this.camera, DOM_Subdivision4);
 
 		this.scene = new THREE.Scene()
 		const ambiantLight = new THREE.AmbientLight(0xFFFFFF, ambiantLightInt);
@@ -115,9 +115,17 @@ export const slide_subdivision = new Slide(
 		const cube4 = loadCMap2('off', cube_off);
 		catmullClark_inter(cube4)
 
-		// const renderer2 = new Renderer(cube4);
-		// renderer2.edges.create({layer: layer5, color: 0x0000bb});
-		// renderer2.edges.addTo(this.group);
+		const renderer2 = new Renderer(cube2);
+		renderer2.edges.create({layer: layer2, color: 0x0000bb, size: 0.25});
+		renderer2.edges.addTo(this.group);
+
+		const renderer3 = new Renderer(cube3);
+		renderer3.edges.create({layer: layer3, color: 0x0000bb, size: 0.25});
+		renderer3.edges.addTo(this.group);
+
+		const renderer4 = new Renderer(cube4);
+		renderer4.edges.create({layer: layer4, color: 0x0000bb, size: 0.25});
+		renderer4.edges.addTo(this.group);
 
 		const rendererDarts0 = new RendererDarts(cube0);
 		rendererDarts0.faces.create({wireframe: true, layer: layer0});
